@@ -103,7 +103,6 @@ var Main = Spine.Controller.sub({
       this.error_msg.css("visibility", "visible");
     else
     {
-      _gaq.push(['_trackEvent', "submit_btn", 'clicked']);
       this.saveData();
       this.login_form.submit();
       this.error_msg.css("visibility", "hidden");
