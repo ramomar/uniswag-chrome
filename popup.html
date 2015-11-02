@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+        <link rel="stylesheet" type="text/css" href="css/foundation.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/spine-1.0.8.js"></script>
+        <script type="text/javascript" src="js/spine_local-1.0.8.js"></script>
+        <script type="text/javascript" src="js/uniswag.js"></script>
+        <script type="text/javascript" src="js/uniswag_analytics.js"></script>
+    </head>
+    <body>
+        <img src="images/uanl_logo.png" class="logo"/>
+        <div id="main_container">
+            <form class="login_form" id="DatosUANL" action="http://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/eselcarrera.htm" method="post" target="_blank">
+                        <span class="label">Matrícula:</span>
+                        <span  id="account_indicator"></span>
+                        <input name="HTMLUsuCve" id="HTMLUsuCve" type="text" placeholder="Matrícula" />
+                        <span class="label" class="label">Contraseña:</span>
+                        <div class="error">
+                        	<input name="HTMLPassword" id="HTMLPassword" type="password" placeholder="Contraseña" autofocus="autofocus" />
+                        <small class="error" id="error_msg">Datos invalidos.</small>
+                        </div>
+                        <input name="HTMLTipCve" id="account_type" type="hidden" value="" />
+                        <input type="button" id="submit_btn" value="Entrar" class="button expand"/>
+            </form>
+        </div>
+    </body>
+</html>
