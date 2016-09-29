@@ -1,6 +1,6 @@
 {
     "name": "#uniswag",
-    "version": "1.2",
+    "version": "1.3",
     "manifest_version": 2,
     "description": "Acceso directo al SIASE pero con swag. @ramomarr",
 
@@ -22,5 +22,22 @@
      "icons": {
     	"128": "icon128.png",
     	"48": "icon48.png"
-    }
+    },
+
+    "content_scripts": [
+      {
+        "matches": [
+          "http://*/App/Programa%20Analitico%20Nuevo%20Modelo/CalendarioAlumno/wfCalendarioEstructura.aspx",
+          "https://*/App/Programa%20Analitico%20Nuevo%20Modelo/CalendarioAlumno/wfCalendarioEstructura.aspx",
+          "http://*/App/Curso/Actividades/CalendarioActividades.aspx",
+          "https://*/App/Curso/Actividades/CalendarioActividades.aspx"
+        ],
+        "js": [
+          "js/jquery-1.9.1.min.js",
+          "js/moment-with-locales-2.15.1.min.js",
+          "js/export-assignments.js"
+        ],
+        "all_frames": true
+      }
+    ]
 }
