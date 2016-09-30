@@ -4,6 +4,12 @@
  CalendarioAlumno/wfCalendarioEstructura.aspx
 */
 
+const Lang = {
+  defaultSubjectName: "Tareas de Nexus",
+  exportButtonText:   "Exportar a Todoist",
+  buttonQuestion:     "¿Cómo se va a llamar el proyecto?"
+};
+
 const Endpoints = {
   dev:  'http://localhost:8080/assignments/callback',
   prod: 'https://uniswag.herokuapp.com/assignments/callback'
@@ -85,7 +91,7 @@ const UI = (function () {
   function makeExportButton(onClick) {
     return $('<input>', {
       type:  'button',
-      value: 'Exportar a Todoist',
+      value: Lang.exportButtonText,
       class: 'btn btn-danger',
       click: onClick
     });
@@ -108,8 +114,7 @@ const UI = (function () {
   }
 
   function askForSubjectName() {
-    return window
-      .prompt("¿Cómo se va a llamar el proyecto?", "Tareas de Nexus");
+    return window.prompt(Lang.buttonQuestion, Lang.defaultSubjectName);
   }
 
   return {
@@ -152,7 +157,7 @@ UI.placeButton(() => {
   const scriptElements = document.getElementsByTagName('script');
   const eventsSource   = Heuristics.searchEventsSource(scriptElements);
   const assignments    = Scraping.pendingAssignments(eventsSource);
-  const subjectName    = UI.askForSubjectName();
+  const subjectName    = UI.askForSubjectName() || Lang.defaultSubjectName;
   const form           = Serialization.makeForm(assignments, subjectName, url);
 
   if (isDev) {
