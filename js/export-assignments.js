@@ -124,7 +124,7 @@ const Heuristics = (function () {
 
   return {
     searchEventsSource
-  }
+  };
 }());
 
 UI.placeButton(() => {
