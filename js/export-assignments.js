@@ -51,12 +51,22 @@ const Serialization = (function () {
     });
   }
 
-  function makeForm(assignments, url) {
+  function makeInputFromSubjectName(subjectName) {
+    return $('<input>', {
+      type: 'hidden',
+      name: 'subject',
+      value: subjectName
+    });
+  }
+
+  function makeForm(assignments, projectName, url) {
     const form = $('<form>', {
       action: url,
       method: 'POST',
       target: '_blank'
     });
+
+    form.append(makeInputFromSubjectName(projectName));
 
     assignments
       .map(makeInputFromAssignment)
@@ -97,8 +107,14 @@ const UI = (function () {
     }
   }
 
+  function askForSubjectName() {
+    return window
+      .prompt("¿Cómo se va a llamar el proyecto?", "Tareas de Nexus");
+  }
+
   return {
-    placeButton
+    placeButton,
+    askForSubjectName
   };
 }());
 
@@ -136,9 +152,11 @@ UI.placeButton(() => {
   const scriptElements = document.getElementsByTagName('script');
   const eventsSource   = Heuristics.searchEventsSource(scriptElements);
   const assignments    = Scraping.pendingAssignments(eventsSource);
-  const form           = Serialization.makeForm(assignments, url);
+  const subjectName    = UI.askForSubjectName();
+  const form           = Serialization.makeForm(assignments, subjectName, url);
 
   if (isDev) {
+    console.log({subjectName});
     assignments.forEach(console.log);
     form.serializeArray().forEach(console.log);
   }
