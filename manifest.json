@@ -33,8 +33,8 @@
           "https://*/App/Curso/Actividades/CalendarioActividades.aspx"
         ],
         "js": [
-          "js/jquery-1.9.1.min.js",
-          "js/moment-with-locales-2.15.1.min.js",
+          "js/lib/jquery-1.9.1.min.js",
+          "js/lib/moment-with-locales-2.15.1.min.js",
           "js/export-assignments.js"
         ],
         "all_frames": true
