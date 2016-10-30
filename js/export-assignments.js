@@ -157,15 +157,18 @@ UI.placeButton(() => {
   const scriptElements = document.getElementsByTagName('script');
   const eventsSource   = Heuristics.searchEventsSource(scriptElements);
   const assignments    = Scraping.pendingAssignments(eventsSource);
-  const subjectName    = UI.askForSubjectName() || Lang.defaultSubjectName;
+  const subjectName    = UI.askForSubjectName();
   const form           = Serialization.makeForm(assignments, subjectName, url);
 
-  if (isDev) {
-    console.log({subjectName});
-    assignments.forEach(console.log);
-    form.serializeArray().forEach(console.log);
+  if (subjectName) {
+    if (isDev) {
+      console.log({subjectName});
+      assignments.forEach(console.log);
+      form.serializeArray().forEach(console.log);
+    }
+
+    form.submit();
   }
 
-  form.submit();
 });
 
