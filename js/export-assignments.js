@@ -11,8 +11,8 @@ const Lang = {
 };
 
 const Endpoints = {
-  dev:  'http://localhost:8080/assignments/callback',
-  prod: 'https://uniswag.herokuapp.com/assignments/callback'
+  dev:  'http://localhost:8080/assignments',
+  prod: 'https://uniswag.herokuapp.com/assignments'
 };
 
 const Scraping = (function () {
