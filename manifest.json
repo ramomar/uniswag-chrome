@@ -49,7 +49,7 @@
           "js/scripts/create-folders.js"
         ],
         "css": [
-          "css/create-folders.css"
+          "css/scripts/create-folders.css"
         ],
         "all_frames": true
       }
