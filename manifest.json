@@ -35,7 +35,7 @@
         "js": [
           "js/lib/jquery-1.9.1.min.js",
           "js/lib/moment-with-locales-2.15.1.min.js",
-          "js/export-assignments.js"
+          "js/scripts/export-assignments.js"
         ],
         "all_frames": true
       },
@@ -46,7 +46,7 @@
         ],
         "js": [
           "js/lib/jquery-1.9.1.min.js",
-          "js/create-folders.js"
+          "js/scripts/create-folders.js"
         ],
         "css": [
           "css/create-folders.css"
