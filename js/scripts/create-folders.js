@@ -18,6 +18,22 @@ const Scraping = (function () {
       return index % 2 === 0;
     }
 
+    function extractRootFolderName(rootFolderNameSource) {
+
+      function makeRootFolderName(str) {
+        const components = str.replace('&nbsp;', '').split(/-|\s/);
+
+        return components[0].substr(0, 3) + '-' +
+          components[1].substr(0, 3) + ' ' +
+          components[2];
+      }
+
+      const nameSource =
+        [].slice.call(rootFolderNameSource).map(e => e.innerHTML)[0];
+
+      return makeRootFolderName(nameSource);
+    }
+
     function extractSubjects(subjectsSource) {
       return [].slice.call(subjectsSource)
         .filter((e, idx) => isShortNameCell(idx))
@@ -25,7 +41,8 @@ const Scraping = (function () {
     }
 
     return {
-      extractSubjects
+      extractSubjects,
+      extractRootFolderName
     };
 }());
 
@@ -39,12 +56,22 @@ const Serialization = (function () {
     });
   }
 
-  function makeForm(subjects, url) {
+  function makeInputFromRootFolderName(rootFolderName) {
+    return $('<input>', {
+      type: 'hidden',
+      name: 'rootFolderName',
+      value: rootFolderName
+    });
+  }
+
+  function makeForm(subjects, rootFolderName, url) {
     const form = $('<form>', {
       action: url,
       method: 'POST',
       target: '_blank'
     });
+
+    form.append(makeInputFromRootFolderName(rootFolderName));
 
     subjects
       .map(makeInputFromSubject)
@@ -102,13 +129,18 @@ if (Heuristics.isScheduleFrame()) {
 
     const url = isDev ? Endpoints.dev : Endpoints.prod;
 
-    const subjectsSource = document.querySelectorAll("[align=left][valign=MIDDLE]");
+    const subjectsSource =
+      document.querySelectorAll('[align=left][valign=MIDDLE]');
+    const rootFolderNameSource = document.getElementsByClassName('rpSdLbVlr');
+
     const subjects       = Scraping.extractSubjects(subjectsSource);
-    const form           = Serialization.makeForm(subjects, url);
+    const rootFolderName = Scraping.extractRootFolderName(rootFolderNameSource);
+    const form           = Serialization.makeForm(subjects,rootFolderName, url);
 
     if (isDev) {
       console.log(subjects);
       subjects.forEach(console.log);
+      form.serializeArray().forEach(console.log);
     }
 
     form.submit();
