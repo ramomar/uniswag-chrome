@@ -41,11 +41,15 @@
       },
       {
         "matches": [
-          "http://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/control.p*"
+          "http://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/control.p*",
+          "https://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/control.p*"
         ],
         "js": [
           "js/lib/jquery-1.9.1.min.js",
-          "js/export-subjects.js"
+          "js/create-folders.js"
+        ],
+        "css": [
+          "css/create-folders.css"
         ],
         "all_frames": true
       }

@@ -1,6 +1,6 @@
 /*
  Note that this script will run in an iframe with the url
- {http, https}://wildcard TODO: Change url here
+ {http, https}://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/control.p*
  */
 
 const Lang = {
@@ -56,22 +56,25 @@ const Serialization = (function () {
   return {
     makeForm
   };
-});
+})();
 
 const UI = (function () {
 
   function makeExportButton(onClick) {
-    return $('input', {
+    return $('<input>', {
       type: 'button',
       value: Lang.exportButtonText,
-      class: 'btn',
+      class: 'export-btn',
       click: onClick
     });
   }
 
   function placeButton(onClick) {
-    const btn = makeExportButton(onClick);
-    $('#id_rpPnlEst td').append(btn);
+    const btn       = makeExportButton(onClick);
+    const container = $('<td>');
+
+    container.append(btn);
+    $('#id_rpPnlEst td').prepend(container);
   }
 
   return {
