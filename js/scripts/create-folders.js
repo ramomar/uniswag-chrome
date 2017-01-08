@@ -5,7 +5,7 @@
 
 const Lang = {
   exportButtonText: 'Crear carpetas en Drive',
-  buttonQuestion:   '¿Cómo se va a llamar la carpeta en donde se crearán las carpetas?'
+  buttonQuestion:   '¿Cómo se va a llamar la carpeta en donde se crearán las carpetas de tus materias?'
 };
 
 const Endpoints = {
