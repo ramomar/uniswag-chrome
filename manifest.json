@@ -1,6 +1,6 @@
 {
     "name": "#uniswag",
-    "version": "1.3",
+    "version": "1.4",
     "manifest_version": 2,
     "description": "Acceso directo al SIASE pero con swag. @ramomarr",
 
@@ -35,7 +35,21 @@
         "js": [
           "js/lib/jquery-1.9.1.min.js",
           "js/lib/moment-with-locales-2.15.1.min.js",
-          "js/export-assignments.js"
+          "js/scripts/export-assignments.js"
+        ],
+        "all_frames": true
+      },
+      {
+        "matches": [
+          "http://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/control.p*",
+          "https://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/control.p*"
+        ],
+        "js": [
+          "js/lib/jquery-1.9.1.min.js",
+          "js/scripts/create-folders.js"
+        ],
+        "css": [
+          "css/scripts/create-folders.css"
         ],
         "all_frames": true
       }

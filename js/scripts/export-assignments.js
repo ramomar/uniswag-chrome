@@ -5,9 +5,9 @@
 */
 
 const Lang = {
-  defaultSubjectName: "Tareas de Nexus",
-  exportButtonText:   "Exportar a Todoist",
-  buttonQuestion:     "¿Cómo se va a llamar el proyecto?"
+  defaultSubjectName: 'Tareas de Nexus',
+  exportButtonText:   'Agregar a Todoist',
+  buttonQuestion:     '¿Cómo se va a llamar el proyecto?'
 };
 
 const Endpoints = {
@@ -34,11 +34,11 @@ const Scraping = (function () {
   }
 
   return {
-    assignments: (eventsSource) =>
+    extractAssignments: (eventsSource) =>
       extractEvents(eventsSource).map(makeAssignment),
-    pendingAssignments: (eventsSource) =>
+    extractPendingAssignments: (eventsSource) =>
       extractEvents(eventsSource).map(makeAssignment).filter(isPending)
-  }
+  };
 }());
 
 const Serialization = (function () {
@@ -83,7 +83,7 @@ const Serialization = (function () {
 
   return {
     makeForm
-  }
+  };
 }());
 
 const UI = (function () {
@@ -125,21 +125,13 @@ const UI = (function () {
 
 const Heuristics = (function () {
 
-  function nodeListToArray(list) {
-    return [].slice.call(list);
-  }
-
-  function innerHtml(node) {
-    return node.innerHTML;
-  }
-
   function looksLikeCalendarScript(str) {
     return str.includes('events');
   }
 
   function searchEventsSource(scriptElements) {
-    return nodeListToArray(scriptElements)
-      .map(innerHtml)
+    return [].slice.call(scriptElements)
+      .map(e => e.innerHTML)
       .filter(looksLikeCalendarScript)[0];
   }
 
@@ -156,7 +148,7 @@ UI.placeButton(() => {
 
   const scriptElements = document.getElementsByTagName('script');
   const eventsSource   = Heuristics.searchEventsSource(scriptElements);
-  const assignments    = Scraping.pendingAssignments(eventsSource);
+  const assignments    = Scraping.extractPendingAssignments(eventsSource);
   const subjectName    = UI.askForSubjectName();
   const form           = Serialization.makeForm(assignments, subjectName, url);
 
@@ -169,6 +161,5 @@ UI.placeButton(() => {
 
     form.submit();
   }
-
 });
 
