@@ -5,9 +5,9 @@
 */
 
 const Lang = {
-  defaultSubjectName: "Tareas de Nexus",
-  exportButtonText:   "Agregar a Todoist",
-  buttonQuestion:     "¿Cómo se va a llamar el proyecto?"
+  defaultSubjectName: 'Tareas de Nexus',
+  exportButtonText:   'Agregar a Todoist',
+  buttonQuestion:     '¿Cómo se va a llamar el proyecto?'
 };
 
 const Endpoints = {

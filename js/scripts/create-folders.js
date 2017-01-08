@@ -4,7 +4,8 @@
  */
 
 const Lang = {
-  exportButtonText: 'Crear carpetas en Drive'
+  exportButtonText: 'Crear carpetas en Drive',
+  buttonQuestion:   '¿Cómo se va a llamar la carpeta en donde se crearán las carpetas?'
 };
 
 const Endpoints = {
@@ -18,9 +19,9 @@ const Scraping = (function () {
       return index % 2 === 0;
     }
 
-    function extractRootFolderName(rootFolderNameSource) {
+    function extractParentFolderName(parentFolderNameSource) {
 
-      function makeRootFolderName(str) {
+      function makeParentFolderName(str) {
         const components = str.replace('&nbsp;', '').split(/-|\s/);
 
         return components[0].substr(0, 3) + '-' +
@@ -29,9 +30,9 @@ const Scraping = (function () {
       }
 
       const nameSource =
-        [].slice.call(rootFolderNameSource).map(e => e.innerHTML)[0];
+        [].slice.call(parentFolderNameSource).map(e => e.innerHTML)[0];
 
-      return makeRootFolderName(nameSource);
+      return makeParentFolderName(nameSource);
     }
 
     function extractSubjects(subjectsSource) {
@@ -42,7 +43,7 @@ const Scraping = (function () {
 
     return {
       extractSubjects,
-      extractRootFolderName
+      extractParentFolderName
     };
 }());
 
@@ -56,22 +57,22 @@ const Serialization = (function () {
     });
   }
 
-  function makeInputFromRootFolderName(rootFolderName) {
+  function makeInputFromParentFolderName(parentFolderName) {
     return $('<input>', {
       type: 'hidden',
-      name: 'rootFolderName',
-      value: rootFolderName
+      name: 'parentFolderName',
+      value: parentFolderName
     });
   }
 
-  function makeForm(subjects, rootFolderName, url) {
+  function makeForm(subjects, parentFolderName, url) {
     const form = $('<form>', {
       action: url,
       method: 'POST',
       target: '_blank'
     });
 
-    form.append(makeInputFromRootFolderName(rootFolderName));
+    form.append(makeInputFromParentFolderName(parentFolderName));
 
     subjects
       .map(makeInputFromSubject)
@@ -104,8 +105,13 @@ const UI = (function () {
     $('#id_rpPnlEst td').prepend(container);
   }
 
+  function askForParentFolderName(defaultParentFolderName) {
+    return window.prompt(Lang.buttonQuestion, defaultParentFolderName);
+  }
+
   return {
-    placeButton
+    placeButton,
+    askForParentFolderName
   };
 }());
 
@@ -131,18 +137,26 @@ if (Heuristics.isScheduleFrame()) {
 
     const subjectsSource =
       document.querySelectorAll('[align=left][valign=MIDDLE]');
-    const rootFolderNameSource = document.getElementsByClassName('rpSdLbVlr');
+    const parentFolderNameSource = document.getElementsByClassName('rpSdLbVlr');
 
-    const subjects       = Scraping.extractSubjects(subjectsSource);
-    const rootFolderName = Scraping.extractRootFolderName(rootFolderNameSource);
-    const form           = Serialization.makeForm(subjects,rootFolderName, url);
+    const subjects =
+      Scraping.extractSubjects(subjectsSource);
+    const defaultParentFolderName =
+      Scraping.extractParentFolderName(parentFolderNameSource);
+    const parentFolderName =
+      UI.askForParentFolderName(defaultParentFolderName);
+    const form =
+      Serialization.makeForm(subjects, parentFolderName, url);
 
-    if (isDev) {
-      console.log(subjects);
-      subjects.forEach(console.log);
-      form.serializeArray().forEach(console.log);
+    if (parentFolderName) {
+      if (isDev) {
+        console.log(subjects);
+        subjects.forEach(console.log);
+        form.serializeArray().forEach(console.log);
+      }
+
+      form.submit();
     }
 
-    form.submit();
   });
 }
