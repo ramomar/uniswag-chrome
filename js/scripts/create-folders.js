@@ -155,6 +155,7 @@ if (Heuristics.isScheduleFrame()) {
         form.serializeArray().forEach(console.log);
       }
 
+      form.appendTo('body');
       form.submit();
     }
 
