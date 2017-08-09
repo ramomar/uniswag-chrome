@@ -4,163 +4,164 @@
  CalendarioAlumno/wfCalendarioEstructura.aspx
 */
 
-const Lang = {
-  defaultSubjectName: 'Tareas de Nexus',
-  exportButtonText:   'Agregar a Todoist',
-  buttonQuestion:     '¿Cómo se va a llamar el proyecto?'
-};
+(function () {
+  const Lang = {
+    defaultSubjectName: 'Tareas de Nexus',
+    exportButtonText:   'Agregar a Todoist',
+    buttonQuestion:     '¿Cómo se va a llamar el proyecto?'
+  };
 
-const Endpoints = {
-  dev:  'http://localhost:8080/assignments',
-  prod: 'https://uniswag.herokuapp.com/assignments'
-};
+  const Endpoints = {
+    dev:  'http://localhost:8080/assignments',
+    prod: 'https://uniswag.herokuapp.com/assignments'
+  };
 
-const Scraping = (function () {
+  const Scraping = (function () {
 
-  function extractEvents(eventsSource) {
-    const rgx = /\[{.*]/g;
-    return eval(eventsSource.match(rgx)[0]);
-  }
+    function extractEvents(eventsSource) {
+      const rgx = /\[{.*]/g;
+      return eval(eventsSource.match(rgx)[0]);
+    }
 
-  function makeAssignment(event) {
+    function makeAssignment(event) {
+      return {
+        title:   event.title,
+        dueDate: moment(event.end)
+      };
+    }
+
+    function isPending(assignment) {
+      return assignment.dueDate.isAfter(new Date());
+    }
+
     return {
-      title:   event.title,
-      dueDate: moment(event.end)
+      extractAssignments: (eventsSource) =>
+        extractEvents(eventsSource).map(makeAssignment),
+      extractPendingAssignments: (eventsSource) =>
+        extractEvents(eventsSource).map(makeAssignment).filter(isPending)
     };
-  }
+  }());
 
-  function isPending(assignment) {
-    return assignment.dueDate.isAfter(new Date());
-  }
+  const Serialization = (function () {
 
-  return {
-    extractAssignments: (eventsSource) =>
-      extractEvents(eventsSource).map(makeAssignment),
-    extractPendingAssignments: (eventsSource) =>
-      extractEvents(eventsSource).map(makeAssignment).filter(isPending)
-  };
-}());
-
-const Serialization = (function () {
-
-  // psv: pipe separated values lol
-  function assignmentAsPsv(assignment) {
-    const dueDate = assignment.dueDate.format('YYYY-MM-DD[T]HH:mmZ');
-    return `${assignment.title}|${dueDate}`;
-  }
-
-  function makeInputFromAssignment(assignment) {
-    return $('<input>', {
-      type: 'hidden',
-      name: 'assignments',
-      value: assignmentAsPsv(assignment)
-    });
-  }
-
-  function makeInputFromSubjectName(subjectName) {
-    return $('<input>', {
-      type: 'hidden',
-      name: 'subject',
-      value: subjectName
-    });
-  }
-
-  function makeForm(assignments, projectName, url) {
-    const form = $('<form>', {
-      action: url,
-      method: 'POST',
-      target: '_blank'
-    });
-
-    form.append(makeInputFromSubjectName(projectName));
-
-    assignments
-      .map(makeInputFromAssignment)
-      .forEach(a => form.append(a));
-
-    return form;
-  }
-
-  return {
-    makeForm
-  };
-}());
-
-const UI = (function () {
-
-  function makeExportButton(onClick) {
-    return $('<input>', {
-      type:  'button',
-      value: Lang.exportButtonText,
-      class: 'btn btn-danger',
-      click: onClick
-    });
-  }
-
-  function placeButton(onClick) {
-
-    const header = $('.calendario-contenido-encabezado div').first();
-
-    if (header.length > 0) {
-      const btn = makeExportButton(onClick).css('margin-left', '20px');
-      header.append(btn);
-    } else {
-      const btn       = makeExportButton(onClick);
-      const container = $('<div class="calendario-contenido-encabezado">');
-
-      container.append($('<div>').append(btn));
-      $('.calendario-contenido').prepend(container);
-    }
-  }
-
-  function askForSubjectName() {
-    return window.prompt(Lang.buttonQuestion, Lang.defaultSubjectName);
-  }
-
-  return {
-    placeButton,
-    askForSubjectName
-  };
-}());
-
-const Heuristics = (function () {
-
-  function looksLikeCalendarScript(str) {
-    return str.includes('events');
-  }
-
-  function searchEventsSource(scriptElements) {
-    return [].slice.call(scriptElements)
-      .map(e => e.innerHTML)
-      .filter(looksLikeCalendarScript)[0];
-  }
-
-  return {
-    searchEventsSource
-  };
-}());
-
-UI.placeButton(() => {
-
-  const isDev = localStorage.getItem('dev') === 'dev';
-
-  const url = isDev ? Endpoints.dev : Endpoints.prod;
-
-  const scriptElements = document.getElementsByTagName('script');
-  const eventsSource   = Heuristics.searchEventsSource(scriptElements);
-  const assignments    = Scraping.extractPendingAssignments(eventsSource);
-  const subjectName    = UI.askForSubjectName();
-  const form           = Serialization.makeForm(assignments, subjectName, url);
-
-  if (subjectName) {
-    if (isDev) {
-      console.log({subjectName});
-      assignments.forEach(console.log);
-      form.serializeArray().forEach(console.log);
+    // psv: pipe separated values lol
+    function assignmentAsPsv(assignment) {
+      const dueDate = assignment.dueDate.format('YYYY-MM-DD[T]HH:mmZ');
+      return `${assignment.title}|${dueDate}`;
     }
 
-    form.appendTo('body');
-    form.submit();
-  }
-});
+    function makeInputFromAssignment(assignment) {
+      return $('<input>', {
+        type: 'hidden',
+        name: 'assignments',
+        value: assignmentAsPsv(assignment)
+      });
+    }
 
+    function makeInputFromSubjectName(subjectName) {
+      return $('<input>', {
+        type: 'hidden',
+        name: 'subject',
+        value: subjectName
+      });
+    }
+
+    function makeForm(assignments, projectName, url) {
+      const form = $('<form>', {
+        action: url,
+        method: 'POST',
+        target: '_blank'
+      });
+
+      form.append(makeInputFromSubjectName(projectName));
+
+      assignments
+        .map(makeInputFromAssignment)
+        .forEach(a => form.append(a));
+
+      return form;
+    }
+
+    return {
+      makeForm
+    };
+  }());
+
+  const UI = (function () {
+
+    function makeExportButton(onClick) {
+      return $('<input>', {
+        type:  'button',
+        value: Lang.exportButtonText,
+        class: 'btn btn-danger',
+        click: onClick
+      });
+    }
+
+    function placeButton(onClick) {
+
+      const header = $('.calendario-contenido-encabezado div').first();
+
+      if (header.length > 0) {
+        const btn = makeExportButton(onClick).css('margin-left', '20px');
+        header.append(btn);
+      } else {
+        const btn       = makeExportButton(onClick);
+        const container = $('<div class="calendario-contenido-encabezado">');
+
+        container.append($('<div>').append(btn));
+        $('.calendario-contenido').prepend(container);
+      }
+    }
+
+    function askForSubjectName() {
+      return window.prompt(Lang.buttonQuestion, Lang.defaultSubjectName);
+    }
+
+    return {
+      placeButton,
+      askForSubjectName
+    };
+  }());
+
+  const Heuristics = (function () {
+
+    function looksLikeCalendarScript(str) {
+      return str.includes('events');
+    }
+
+    function searchEventsSource(scriptElements) {
+      return [].slice.call(scriptElements)
+        .map(e => e.innerHTML)
+        .filter(looksLikeCalendarScript)[0];
+    }
+
+    return {
+      searchEventsSource
+    };
+  }());
+
+  UI.placeButton(() => {
+
+    const isDev = localStorage.getItem('dev') === 'dev';
+
+    const url = isDev ? Endpoints.dev : Endpoints.prod;
+
+    const scriptElements = document.getElementsByTagName('script');
+    const eventsSource   = Heuristics.searchEventsSource(scriptElements);
+    const assignments    = Scraping.extractPendingAssignments(eventsSource);
+    const subjectName    = UI.askForSubjectName();
+    const form           = Serialization.makeForm(assignments, subjectName, url);
+
+    if (subjectName) {
+      if (isDev) {
+        console.log({subjectName});
+        assignments.forEach(console.log);
+        form.serializeArray().forEach(console.log);
+      }
+
+      form.appendTo('body');
+      form.submit();
+    }
+  });
+})();
