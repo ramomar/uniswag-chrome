@@ -1,6 +1,6 @@
 /* Tweaked Twitter Bootstrap warning button */
 
-.export-btn {
+.create-events-btn {
     display:          inline-block;
     margin-bottom:    10px;
     font-weight:      400;
@@ -19,17 +19,17 @@
     border-radius:    3px
 }
 
-.export-btn:hover {
+.create-events-btn:hover {
     background-color: #ec971f;
     border-color:     #d58512;
 }
 
-.export-btn:hover {
+.create-events-btn:hover {
     background-color: #ec971f;
     border-color:     #d58512;
 }
 
-.export-btn:focus {
+.create-events-btn:focus {
     background-color: #ec971f;
     border-color:     #985f0d;
 }

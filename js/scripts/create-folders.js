@@ -93,7 +93,7 @@
       return $('<input>', {
         type: 'button',
         value: Lang.exportButtonText,
-        class: 'export-btn',
+        class: 'create-folders-btn',
         click: onClick
       });
     }

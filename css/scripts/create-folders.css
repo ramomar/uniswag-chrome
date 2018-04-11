@@ -1,6 +1,6 @@
 /* Tweaked Twitter Bootstrap warning button */
 
-.export-btn {
+.create-folders-btn {
     display:          inline-block;
     margin-bottom:    10px;
     font-weight:      400;
@@ -19,17 +19,17 @@
     border-radius:    3px
 }
 
-.export-btn:hover {
+.create-folders-btn:hover {
     background-color: #ec971f;
     border-color:     #d58512;
 }
 
-.export-btn:hover {
+.create-folders-btn:hover {
     background-color: #ec971f;
     border-color:     #d58512;
 }
 
-.export-btn:focus {
+.create-folders-btn:focus {
     background-color: #ec971f;
     border-color:     #985f0d;
 }
