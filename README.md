@@ -11,8 +11,10 @@ Features:
 - Saves your enrollment so you don't have to type it every time you want to log in.
 - Keyboard shortcut.
 
+You can read a funny description in the [Chrome Web Store.](https://chrome.google.com/webstore/detail/uniswag/mogfppbobkadpdmpjdpcgmajlcffiemn)
+
 ## How to use:
-1. Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/uniswag/mogfppbobkadpdmpjdpcgmajlcffiemn)
+1. Install the extension from the [Chrome Web Store.](https://chrome.google.com/webstore/detail/uniswag/mogfppbobkadpdmpjdpcgmajlcffiemn)
 2. Navigate to either your schedule or your course page.
 3. There should be a button (_Crear carpetas en Drive_ or _Exportar a Todoist_).
 4. Click on that button.
