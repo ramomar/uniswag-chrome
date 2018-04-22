@@ -1,35 +1,35 @@
 /* Tweaked Twitter Bootstrap warning button */
 
 .export-btn {
-    display:          inline-block;
-    margin-bottom:    10px;
-    font-weight:      400;
-    line-height:      1.2;
-    text-align:       center;
-    white-space:      nowrap;
-    vertical-align:   middle;
-    user-select:      none;
-    border:           1px solid transparent;
-    transition:       all .2s ease-in-out;
-    color:            #fff;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    transition: all .2s ease-in-out;
+    color: #fff;
     background-color: #f0ad4e;
-    border-color:     #f0ad4e;
-    padding:          1px 15px;
-    font-size:        12px;
-    border-radius:    3px
+    border-color: #f0ad4e;
+    padding: 1px 15px;
+    font-size: 12px;
+    border-radius: 3px
 }
 
 .export-btn:hover {
     background-color: #ec971f;
-    border-color:     #d58512;
+    border-color: #d58512;
 }
 
 .export-btn:hover {
     background-color: #ec971f;
-    border-color:     #d58512;
+    border-color: #d58512;
 }
 
 .export-btn:focus {
     background-color: #ec971f;
-    border-color:     #985f0d;
+    border-color: #985f0d;
 }
