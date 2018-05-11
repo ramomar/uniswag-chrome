@@ -13,7 +13,7 @@ Features:
 
 You can read a funny description in the [Chrome Web Store.](https://chrome.google.com/webstore/detail/uniswag/mogfppbobkadpdmpjdpcgmajlcffiemn)
 
-## How to use:
+## How to use
 1. Install the extension from the [Chrome Web Store.](https://chrome.google.com/webstore/detail/uniswag/mogfppbobkadpdmpjdpcgmajlcffiemn)
 2. Navigate to either your schedule or your course page.
 3. There should be a button (_Crear carpetas en Drive_ or _Exportar a Todoist_).
