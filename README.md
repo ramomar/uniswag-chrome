@@ -1,6 +1,13 @@
 # uniswag
+
 <p align="center">
-  <img width="402" src="https://user-images.githubusercontent.com/10622989/39090191-d6d3ee1c-459d-11e8-9a24-81e61c7c137f.png">
+   <img width="420" src="https://user-images.githubusercontent.com/10622989/39090191-d6d3ee1c-459d-11e8-9a24-81e61c7c137f.png">
+</p>
+
+<p align="center">
+   <img width="200" alt="Todoist integration" border src="https://user-images.githubusercontent.com/10622989/39090164-c5abaa9a-459c-11e8-9a09-6993a7e416be.gif">
+   <img width="10"></img>
+   <img width="200" alt="Google Drive integration" src="https://user-images.githubusercontent.com/10622989/39090166-d79e6684-459c-11e8-8a31-a0e0514fc083.gif">
 </p>
 
 Uniswag is a Google Chrome extension developed to overcome some quirks of my university course management system.
