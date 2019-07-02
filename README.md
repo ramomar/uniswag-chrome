@@ -1,4 +1,4 @@
-# uniswag
+# uniswag-chrome
 
 <p align="center">
    <img width="420" src="https://user-images.githubusercontent.com/10622989/39090191-d6d3ee1c-459d-11e8-9a24-81e61c7c137f.png">
