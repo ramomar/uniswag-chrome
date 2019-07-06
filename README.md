@@ -21,7 +21,7 @@ Uniswag is a Google Chrome extension developed to overcome some quirks of my uni
 You can read a funny description in the [Chrome Web Store.](https://chrome.google.com/webstore/detail/uniswag/mogfppbobkadpdmpjdpcgmajlcffiemn)
 
 ## How to use
-1. Install the extension from the [Chrome Web Store.](https://chrome.google.com/webstore/detail/uniswag/mogfppbobkadpdmpjdpcgmajlcffiemn)
+1. Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/uniswag/mogfppbobkadpdmpjdpcgmajlcffiemn) and login to SIASE (don't forget to use the keyboard shortcut!).
 2. Navigate to either your schedule or your course page.
 3. There should be a button (_Crear carpetas en Drive_ or _Exportar a Todoist_).
 4. Click on that button.
